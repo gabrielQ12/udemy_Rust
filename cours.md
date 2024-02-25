@@ -431,6 +431,125 @@ fn main() {
 ```
 ------
 ```Rust
+use std::thread;
+
+use std::time::Duration;
+
+fn main() {
+    let th = thread::spawn(|| {
+      for i in 1..10 {
+        println!("---------------Thread secondaire - {}", i);
+        thread::sleep(Duration::from_millis(1000));
+      }
+    });
+
+
+   for i in 1..5 {
+      println!("Thread principal - {}", i);
+      thread::sleep(Duration::from_millis(600));
+   }
+
+   th.join();
+}
+```
+------
+```Rust
+use std::thread;
+use std::time::Duration;
+use std::sync::mpsc;
+
+fn main() {
+    let(sender,receiver) = mpsc::channel();
+    thread::spawn(move || {
+      for i in 1..10 {
+          sender.send(i).unwrap();
+          thread::sleep(Duration::from_millis(500));
+      }
+    });
+
+    for recu in receiver {
+        println!("Got: {}", recu);
+    }
+
+    println!("Fin de programme");
+}
+
+```
+------
+```Rust
+use std::thread;
+use std::time::Duration;
+use std::sync::mpsc;
+
+fn main() {
+    let(sender,receiver) = mpsc::channel();
+    let sen2 = mpsc::Sender::clone(&sender);
+
+
+    thread::spawn(move || {
+      for i in 1..10 {
+          sender.send(i).unwrap();
+          thread::sleep(Duration::from_millis(500));
+      }
+    });
+
+    thread::spawn(move || {
+      for i in 100..110 {
+          sen2.send(i).unwrap();
+          thread::sleep(Duration::from_millis(200));
+      }
+    });
+
+    for recu in receiver {
+        println!("Got: {}", recu);
+    }
+
+    println!("Fin de programme");
+}
+
+ 
+```
+------
+```Rust
+use std::thread;
+use std::sync::{ Mutex, Arc };
+
+fn main() {
+  let mut compteur = Arc::new(Mutex::new(0));
+  let mut handles = vec![];
+
+  for _ in 0..1000 {
+
+      let c = Arc::clone(&compteur);
+      let handler = thread::spawn(move || {
+          let mut num = c.lock().unwrap();
+          *num += 1;
+    });
+
+    handles.push(handler);
+  }
+
+  for handle in handles {
+      handle.join();
+  }
+
+  println!("{}", *compteur.lock().unwrap());
+}
+
+ 
+
+
+```
+------
+```Rust
+
+```
+------
+```Rust
+
+```
+------
+```Rust
 
 ```
 ------
