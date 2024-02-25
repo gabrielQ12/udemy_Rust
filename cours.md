@@ -147,9 +147,105 @@ fn main() {
 ```
 ------
 ```Rust
+struct Rectangle<T> {
+    x: T,
+    y: T,
+}
+// ici <T> est un type générique (ou un type indefinis)
+
+
+
+fn main() {
+    let r1 = Rectangle{x:2,y:5};
+    let r2 = Rectangle{x:2.0, y:5.0};
+    
+
+
+}
+
+// attention quand on utilise un type générique on peu par erreur passé des choses totalement diférente, 
+// par exemple un string a la place des chiffres par exemple let r3 = Rectangle{x:"un", y:"deux"};
+```
+------
+```Rust
+struct Rectangle<T> {
+    x: T,
+    y: T,
+}
+
+
+impl<T> Rectangle<T> {
+    fn valeur_x(&self) -> &T {
+        &self.x
+    }
+}
+
+
+
+fn main() {
+    let r1 = Rectangle{x:2,y:5};
+    let r2 = Rectangle{x:2.0, y:5.0};
+
+    print!("{}", r1.valeur_x());
+
+}
+
+
+```
+------
+```Rust
+struct Rectangle<T> {
+    x: T,
+    y: T,
+}
+
+
+impl Rectangle<usize> {
+    fn surface(&self) -> usize {
+        &self.x * &self.y
+    }
+}
+// ici on ne peu pas multiplier deux T, car le compilateur ne sait pas si T est un type qui peut être multiplié
+// donc on specifier usize pour la methode surface
+
+impl Rectangle<f32> {
+    fn surface(&self) -> f32 {
+        &self.x * &self.y
+    }
+}
+
+// dans le cadre d'un type générique nouq pouvons implémenté plusieurs méthode avec des types différents
+
+
+fn main() {
+    let r1 = Rectangle{x:2,y:5};
+    let r2 = Rectangle{x:2.2, y:5.0};
+
+    print!("{}", r1.surface());
+    print!("{}", r2.surface());
+
+}
+
 
 ```
 ------
 ```Rust
 
 ```
+------
+```Rust
+
+```
+------
+```Rust
+
+```
+------
+```Rust
+
+```
+------
+```Rust
+
+```
+
