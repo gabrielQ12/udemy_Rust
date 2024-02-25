@@ -93,19 +93,57 @@ fn op(arg: u8) -> Option<u8> {
 ```
 ------
 ```Rust
+enum Result<T,E> {
+    Ok(T),
+    Err(E),
+}
+
+// ici Result est un type générique qui prend deux paramètres de type T et E
+// Ok et Err sont des variantes de Result et seront utiliser pour de la gestion d'erreur
+
+
+
+fn main() {
+   panic!("crash du programme");
+}
 
 ```
 ------
 ```Rust
+use std::fs::File;
+
+fn main() {
+  let f = File::open("coucou.txt");
+  let file = match f {
+    Ok(content) => content,
+    Err(error) => {
+        panic!("{}", error);
+    },
+  };
+}
 
 ```
 ------
 ```Rust
+use std::fs::File;
 
+fn main() {
+  let f = File::open("coucou.txt").unwrap();
+  
+}
+
+// la methode unwrap() permet de retourner le resultat si il est Ok sinon elle leve une erreur
 ```
 ------
 ```Rust
+use std::fs::File;
 
+fn main() {
+  let f = File::open("coucou.txt").exept("Impossible de lire le fichier");
+  
+}
+
+// ici la methode except sera appelée si le fichier n'existe pas et renverra un message d'erreur personnalisé
 ```
 ------
 ```Rust
