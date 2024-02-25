@@ -30,14 +30,65 @@ fn main() {
 ```
 ------
 ```Rust
+enum Choix {
+    Pour,
+    Contre,
+}
+
+// ici nous avons un enum qui contient deux variantes, Pour et Contre.
+
+fn main() {
+   choisir(Choix::Pour);
+}
+
+fn choisir(choix: Choix) {
+    match choix {
+        Choix::Pour => println!("Plutôt pour"),
+        Choix::Contre => println!("Plutôt contre"),
+    }
+}
+
+
+```
+------
+```Rust
+enum Choix {
+    Pour,
+    Contre(String),
+}
+
+// ici contre contient une valeur qui est une chaîne de caractères, 
+// cette valeur devra être fournie lors de l'appel de la fonction choisir
+
+fn main() {
+   choisir(Choix::Contre("pas d'accord".to_owned()));
+}
+
+fn choisir(choix: Choix) {
+    match choix {
+        Choix::Pour => println!("Plutôt pour"),
+        Choix::Contre(x) => println!("Plutôt contre parce que {}", x ),
+    }
+}
+
 
 ```
 ------
 ```Rust
 
-```
-------
-```Rust
+
+fn main() {
+   match op(85) {
+    Option::None => println!("Aucune valeur"),
+    Option::Some(x) => println!("{}", x )
+   }
+}
+
+fn op(arg: u8) -> Option<u8> {
+    Option::Some(arg)
+}
+
+// Option est un type enumératif qui permet de gérer les cas où une valeur peut être absente.
 
 ```
 ------
