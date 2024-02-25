@@ -349,6 +349,97 @@ fn plus_grand<'a>(v1: &'a u8, v2: &'a u8) -> & 'a u8 {
 ------
 ```Rust
 
+
+fn main() {
+  calcul(multi, 15, 23)
+}
+
+fn addition(x: i32, y:i32) -> i32 {
+    x+y
+}
+
+fn multi(x: i32, y:i32) -> i32 {
+    x*y
+}
+
+
+fn calcul<F> (function: F, a:i32, b:i32)
+    where F: Fn(i32, i32) -> i32
+{
+    println!("{}", function(a,b));
+}
+
+// ici nous avons une fonction qui utilise une autre fonction comme paramètre
+```
+------
+```Rust
+
+
+fn main() {
+    let un = 56;
+    let deux = 89;
+  calcul(|x,y| x+y, un , deux);
+}
+
+// ici nous utilison une closure ( | | )pour passer une fonction en parametre 
+
+
+
+fn calcul<F> (function: F, a:i32, b:i32)
+    where F: Fn(i32, i32) -> i32
+{
+    println!("{}", function(a,b));
+}
+
+
+```
+------
+```Rust
+
+
+fn main() {
+    let un = 56;
+    let deux = 89;
+  calcul(|| un ,deux);
+}
+
+// ici nous utilison une closure ( | | )pour passer une fonction en parametre 
+
+
+
+fn calcul<F> (function: F, a:i32, b:i32)
+    where F: Fn
+{
+    println!("{}", function());
+}
+
+
+```
+------
+```Rust
+
+
+fn main() {
+  let a = String::from("Hello");
+  let clos = || println!("{}", a);
+  clos();
+}
+
+// une closure a conscience de son environnement
+// une closure emprunte la propriété de a et lui la rend en fin de traitement
+
+```
+------
+```Rust
+
+```
+------
+```Rust
+
+```
+------
+```Rust
+
 ```
 ------
 ```Rust

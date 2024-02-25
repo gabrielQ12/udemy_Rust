@@ -1,12 +1,7 @@
-struct Truc_A_Dire<'a> {
-    texte : &'a str,
-}
-
-// texte est un pointeur d'une durée de vie 'a
-
 fn main() {
-  let a = Truc_A_Dire { texte: "Hello, world!" };
-    println!("{}", a.texte);
+  let a = String::from("Hello");
+  let clos = move || println!("{}", a);
+  clos();
+  println!("{}", a);
 }
 
- // a chaque manipulation de pointeur il faudra specifier une durée de vie (lifetime)
