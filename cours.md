@@ -326,6 +326,25 @@ fn calculer(figure: impl Surface, figure2: impl Perimetre) {
 ------
 ```Rust
 
+
+fn main() {
+   let a = 8;
+   let b = 32;
+
+   println!("{}", plus_grand(&a, &b));
+}
+
+
+fn plus_grand<'a>(v1: &'a u8, v2: &'a u8) -> & 'a u8 {
+    if v1 > v2 {
+        v1
+    } else {
+        v2
+    }
+}
+
+// ici 'a représente la durée de vie de la référence retournée par la fonction plus_grand.
+
 ```
 ------
 ```Rust
